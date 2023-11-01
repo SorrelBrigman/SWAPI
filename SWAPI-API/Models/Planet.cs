@@ -1,9 +1,11 @@
 ﻿using System;
+using StarWarsApiCSharp;
+
 namespace SWAPI_API.Models
 {
-	public class Planets
+	public class Planet : StarWarsApiCSharp.Planet
 	{
-		public Planets()
+		public Planet()
 		{
 		}
 	}

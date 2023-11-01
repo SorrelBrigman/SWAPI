@@ -13,7 +13,7 @@ namespace SWAPI_API.Models
 		{
 		}
 
-		List<Starship> GetStarshipsByUrls(List<string> theseAreTheShipsYoureLookingFor)
+		public List<Starship> GetStarshipsByUrls(List<string> theseAreTheShipsYoureLookingFor)
 		{
 			//opting to return up to 1000 starships, expecting that will include all records
 			// opting for single db call, rather than lots of small calls
