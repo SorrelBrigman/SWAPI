@@ -1,32 +1,27 @@
 ﻿using System;
 using System.Xml.Linq;
 using StarWarsApiCSharp;
+using SWAPI_API.Utilities;
 
 namespace SWAPI_API.Models
 {
 	public class Person : StarWarsApiCSharp.Person
 	{
-        IRepository<Person> personRepo = new Repository<Person>();
+		IRepository<Person> personRepo;
 
         public Person()
 		{
-		}
+			this.personRepo = new Repository<Person>();
+        }
 
 
 		public List<string> getStarshipURLsByPersonName(string name)
 		{
-			string cleanName = CleanUpName(name);
+            string cleanName = Helper.CleanUpString(name);
 			Person personRecord = GetPersonByName(cleanName);
 			return getStarshipsByPerson(personRecord);
 		}
 
-
-		private string? CleanUpName(string rawName)
-		{
-			string nameWithoutUnderscores = rawName.Replace("_", " ").Replace("-", " ");
-            string cleanName = nameWithoutUnderscores.Trim().ToUpper();
-			return cleanName;
-        }
 
 
 		private Person? GetPersonByName(string cleanName)
@@ -34,7 +29,7 @@ namespace SWAPI_API.Models
 
             if (cleanName != string.Empty)
             {
-                ICollection<Person> allPersons = personRepo.GetEntities(1, 20000);
+                ICollection<Person> allPersons = personRepo.GetEntities(1, int.MaxValue);
 
                 List<Person> personYoureLookingFor = allPersons.Where(p => p.Name.ToUpper() == cleanName).ToList<Person>();
 
