@@ -1,0 +1,3 @@
+[submodule "SharpTrooper"]
+	path = SharpTrooper
+	url = https://github.com/olcay/SharpTrooper

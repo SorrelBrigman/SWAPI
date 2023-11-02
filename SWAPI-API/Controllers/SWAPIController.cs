@@ -5,42 +5,47 @@ using SWAPI_API.Models;
 
 namespace SWAPI_API.Controllers
 {
-	[ApiController]
+    [Route("api/SWAPI")]
+    [ApiController]
 	public class SWAPIController : ControllerBase
 	{
-        Person personInstance;
-        Starship starshipInstance;
-        Film filmInstance;
-        Species speciesInstance;
+        Person? personInstance;
+        Starship? starshipInstance;
+        Film? filmInstance;
+        Species? speciesInstance;
 
-        HttpClient DirectSWAPIClient;
+        HttpClient? DirectSWAPIClient;
 
 
-        public SWAPIController()
+
+        [HttpGet]
+		public IEnumerable<Starship> GetLukesStarships()
 		{
-            HttpClient DirectSWAPIClient = new HttpClient();
-            DirectSWAPIClient.BaseAddress = new Uri("http://swapi.dev/");
+            //HttpClient DirectSWAPIClient = new HttpClient();
+            //DirectSWAPIClient.BaseAddress = new Uri("http://swapi.dev/");
 
             Person personInstance = new Person();
             Starship starshipInstance = new Starship();
             Film filmInstance = new Film();
             Species speciesInstance = new Species();
-            Planet planetInstance = new Planet(DirectSWAPIClient);
+			//Planet planetInstance = new Planet(DirectSWAPIClient);
+
+			return GetLukeRelatedStarships();
         }
 
 		
 
-		public List<Starship> GetRelatedStarshipByCharacterName(string name)
-		{
-            List<string> starshipUrls = personInstance.getStarshipURLsByPersonName(name);
+		//public List<Starship> GetRelatedStarshipByCharacterName(string name)
+		//{
+  //          List<string> starshipUrls = personInstance.getStarshipURLsByPersonName(name);
 
-            List<Starship> namesStarships = starshipInstance.GetStarshipsByUrls(starshipUrls);
+  //          List<Starship> namesStarships = starshipInstance.GetStarshipsByUrls(starshipUrls);
 
-            return namesStarships;
-        }
+  //          return namesStarships;
+  //      }
 
 
-		public List<Starship> GetLukeRelatedStarships()
+		private List<Starship> GetLukeRelatedStarships()
         {
 			
 			List<string> starshipUrls = personInstance.getStarshipURLsByPersonName("Luke Skywalker");
@@ -50,33 +55,33 @@ namespace SWAPI_API.Controllers
 			return lukesStarships;
         }
 
-		public List<Species.SpeciesNameAndCategory> GetSpeciesNameClassificationsByFile(string filmTitle)
-		{
-			Film filmObject = filmInstance.getFilmByTitle(filmTitle);
-			if (filmObject == null)
-			{
-				//return resource not found exception
-			}
+		//public List<Species.SpeciesNameAndCategory> GetSpeciesNameClassificationsByFile(string filmTitle)
+		//{
+		//	Film filmObject = filmInstance.getFilmByTitle(filmTitle);
+		//	if (filmObject == null)
+		//	{
+		//		//return resource not found exception
+		//	}
 
-			List<string> filmSpeciesUrls = filmObject.Species.ToList<string>();
+		//	List<string> filmSpeciesUrls = filmObject.Species.ToList<string>();
 
-			List<Species.SpeciesNameAndCategory> uniquespeciesClassification = speciesInstance.getSpeciesClassificationAndNameByFilm(filmSpeciesUrls);
-			return uniquespeciesClassification;
-		}
+		//	List<Species.SpeciesNameAndCategory> uniquespeciesClassification = speciesInstance.getSpeciesClassificationAndNameByFilm(filmSpeciesUrls);
+		//	return uniquespeciesClassification;
+		//}
 
-        public List<string> GetSpeciesUniqueClassificationsByFile(string filmTitle)
-        {
-            Film filmObject = filmInstance.getFilmByTitle(filmTitle);
-            if (filmObject == null)
-            {
-                //return resource not found exception
-            }
+  //      public List<string> GetSpeciesUniqueClassificationsByFile(string filmTitle)
+  //      {
+  //          Film filmObject = filmInstance.getFilmByTitle(filmTitle);
+  //          if (filmObject == null)
+  //          {
+  //              //return resource not found exception
+  //          }
 
-            List<string> filmSpeciesUrls = filmObject.Species.ToList<string>();
+  //          List<string> filmSpeciesUrls = filmObject.Species.ToList<string>();
 
-            List<string> uniquespeciesClassification = speciesInstance.getSpeciesClassificationByFilm(filmSpeciesUrls);
-			return uniquespeciesClassification;
-		}
+  //          List<string> uniquespeciesClassification = speciesInstance.getSpeciesClassificationByFilm(filmSpeciesUrls);
+		//	return uniquespeciesClassification;
+		//}
 
     }
 }
