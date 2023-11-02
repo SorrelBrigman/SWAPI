@@ -1,25 +1,25 @@
 ﻿using System;
-using StarWarsApiCSharp;
 using System.Linq;
+using SWAPI_API.Utilities;
 
 namespace SWAPI_API.Models
 {
 
-    public class Starship : StarWarsApiCSharp.Starship
+    public class Starship : Vehicle
 	{
-		IRepository<Starship> starshipRepo;
 
-		public Starship()
+        protected SWAPIDevInteraction interaction;
+        public Starship(SWAPIDevInteraction interaction)
 		{
-			this.starshipRepo = new Repository<Starship>();
+			this.interaction = interaction;
         }
 
 		public List<Starship> GetStarshipsByUrls(List<string> theseAreTheShipsYoureLookingFor)
 		{
-			// opting for single db call, rather than lots of small calls
-			ICollection<Starship> allStarships = starshipRepo.GetEntities(1, int.MaxValue);
+            // opting for single db call, rather than lots of small calls
+            StarWarsCategoryResults<Starship> allStarships = interaction.GetAllStarships();
 
-			List<Starship> filteredresults = allStarships.Where(s => theseAreTheShipsYoureLookingFor.Contains(s.Url)).ToList<Starship>();
+			List<Starship> filteredresults = allStarships.results.Where(s => theseAreTheShipsYoureLookingFor.Contains(s.url)).ToList<Starship>();
 
 			return filteredresults;
 

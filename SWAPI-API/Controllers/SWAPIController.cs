@@ -2,6 +2,8 @@
 using System.Xml.Linq;
 using Microsoft.AspNetCore.Mvc;
 using SWAPI_API.Models;
+using SWAPI_API.Utilities;
+
 
 namespace SWAPI_API.Controllers
 {
@@ -11,8 +13,8 @@ namespace SWAPI_API.Controllers
 	{
         Person? personInstance;
         Starship? starshipInstance;
-        Film? filmInstance;
-        Species? speciesInstance;
+        //Film? filmInstance;
+        //Species? speciesInstance;
 
         HttpClient? DirectSWAPIClient;
 
@@ -21,16 +23,16 @@ namespace SWAPI_API.Controllers
         [HttpGet]
 		public IEnumerable<Starship> GetLukesStarships()
 		{
-            //HttpClient DirectSWAPIClient = new HttpClient();
-            //DirectSWAPIClient.BaseAddress = new Uri("http://swapi.dev/");
+			SWAPIDevInteraction interaction = new SWAPIDevInteraction();
 
-            Person personInstance = new Person();
-            Starship starshipInstance = new Starship();
-            Film filmInstance = new Film();
-            Species speciesInstance = new Species();
-			//Planet planetInstance = new Planet(DirectSWAPIClient);
+            Person personInstance = new Person(interaction);
+            Starship starshipInstance = new Starship(interaction);
+            //Film filmInstance = new Film();
+            //Species speciesInstance = new Species();
+            //Planet planetInstance = new Planet(DirectSWAPIClient);
+            ;
 
-			return GetLukeRelatedStarships();
+            return GetLukeRelatedStarships(personInstance, starshipInstance);
         }
 
 		
@@ -45,7 +47,7 @@ namespace SWAPI_API.Controllers
   //      }
 
 
-		private List<Starship> GetLukeRelatedStarships()
+		private List<Starship> GetLukeRelatedStarships(Person personInstance, Starship starshipInstance)
         {
 			
 			List<string> starshipUrls = personInstance.getStarshipURLsByPersonName("Luke Skywalker");
