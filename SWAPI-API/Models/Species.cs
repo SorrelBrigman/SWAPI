@@ -1,11 +1,11 @@
-﻿using System;
+﻿using SWAPI_API.Utilities;
 
 namespace SWAPI_API.Models
 {
     public class Species : StarWarsCategory
     {
 
-        public Species(Utilities.SWAPIDevInteraction interaction)
+        public Species(SWAPIDevInteraction interaction)
         {
             this.interaction = interaction;
         }

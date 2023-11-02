@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SWAPI_API.Models;
 using SWAPI_API.Utilities;
 
@@ -25,6 +24,7 @@ namespace SWAPI_API.Controllers
 
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Species.SpeciesNameAndCategory>))]
         public ActionResult<IEnumerable<Species.SpeciesNameAndCategory>> GetEpisodeOnesSpecies()
         {
 
@@ -32,12 +32,19 @@ namespace SWAPI_API.Controllers
         }
 
         [HttpGet("film_title")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Starship>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest )]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<IEnumerable<Species.SpeciesNameAndCategory>> GetSpeciesNameClassificationsByFilm(string filmTitle)
         {
+            if (String.IsNullOrEmpty(filmTitle))
+                return BadRequest();
+
             Film? filmObject = filmInstance.getFilmByTitle(filmTitle);
+
             if (filmObject == null)
             {
-                return BadRequest();
+                return NotFound();
             }
             else
             {
@@ -48,20 +55,6 @@ namespace SWAPI_API.Controllers
             }
         }
 
-
-        //public List<string> GetSpeciesUniqueClassificationsByFilm(string filmTitle)
-        //{
-        //    Film? filmObject = filmInstance.getFilmByTitle(filmTitle);
-        //    if (filmObject == null)
-        //    {
-        //        //return resource not found exception
-        //    }
-
-        //    List<string> filmSpeciesUrls = filmObject.species;
-
-        //    List<string> uniquespeciesClassification = speciesInstance.getSpeciesClassificationByFilm(filmSpeciesUrls);
-        //    return uniquespeciesClassification;
-        //}
     }
 }
 

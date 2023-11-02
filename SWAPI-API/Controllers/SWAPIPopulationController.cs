@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SWAPI_API.Models;
 using SWAPI_API.Utilities;
 
@@ -24,6 +23,7 @@ namespace SWAPI_API.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Planet.PopulationResult>))]
         public ActionResult<IEnumerable<Planet.PopulationResult>> GetGalaxyPlanetPopulation()
         {
             Planet.PopulationResult populationResult = planetInstance.getTotalPopulationOfGalaxyLivingOnPlanets();

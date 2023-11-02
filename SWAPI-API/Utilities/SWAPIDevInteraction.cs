@@ -1,8 +1,7 @@
-﻿using System;
-using Newtonsoft.Json;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
 using System.Net;
 using System.Text;
+using Newtonsoft.Json;
 using SWAPI_API.Models;
 
 namespace SWAPI_API.Utilities
@@ -28,7 +27,6 @@ namespace SWAPI_API.Utilities
             _proxyName = proxyName;
         }
 
-        #region Private
 
         private string Request(string url, HttpMethod httpMethod)
         {
@@ -73,8 +71,6 @@ namespace SWAPI_API.Utilities
             }
             return parameters.Remove(parameters.Length - 1, 1).ToString();
         }
-
-
 
 
         private T GetSingle<T>(string endpoint, Dictionary<string, string> parameters = null) where T : StarWarsCategory
@@ -171,80 +167,59 @@ namespace SWAPI_API.Utilities
             swapiResult.count = result.Count();
 
             return swapiResult;
-            
+
         }
 
-            #endregion
 
-            #region Public
 
-            /// <summary>
-            /// get a specific resource by url
-            /// </summary>
-            public T GetSingleByUrl<T>(string url) where T : StarWarsCategory
-            {
-                string json = Request(url, HttpMethod.GET);
-                T swapiResponse = JsonConvert.DeserializeObject<T>(json);
-                return swapiResponse;
-            }
+        public T GetSingleByUrl<T>(string url) where T : StarWarsCategory
+        {
+            string json = Request(url, HttpMethod.GET);
+            T swapiResponse = JsonConvert.DeserializeObject<T>(json);
+            return swapiResponse;
+        }
 
-            // People
-            /// <summary>
-            /// get a specific people resource
-            /// </summary>
-            public Person GetPerson(string id)
-            {
-                return GetSingle<Person>("/people/" + id);
-            }
 
-            public Person GetPersonByName(string name)
-            {
-                Dictionary<string, string> parameters = new Dictionary<string, string>();
-                parameters.Add("name", name.ToString());
-                return GetSingle<Person>("/people/", parameters);
-            }
+        public Person GetPerson(string id)
+        {
+            return GetSingle<Person>("/people/" + id);
+        }
 
-            /// <summary>
-            /// get all the people resources
-            /// </summary>
-            public StarWarsCategoryResults<Person> GetAllPeople()
-            {
-                StarWarsCategoryResults<Person> result = GetEverything<Person>("/people/");
+        public Person GetPersonByName(string name)
+        {
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
+            parameters.Add("name", name.ToString());
+            return GetSingle<Person>("/people/", parameters);
+        }
 
-                return result;
-            }
+        public StarWarsCategoryResults<Person> GetAllPeople()
+        {
+            StarWarsCategoryResults<Person> result = GetEverything<Person>("/people/");
 
-            //// Film
-            //// <summary>
-            //// get a specific film resource
-            /// </summary>
-            //public Film GetFilm(string id)
-            //{
-            //    return GetSingle<Film>("/films/" + id);
-            //}
+            return result;
+        }
 
-            /// <summary>
-            /// get all the film resources
-            /// </summary>
-            public StarWarsCategoryResults<Film> GetAllFilms()
-            {
-                StarWarsCategoryResults<Film> result = GetEverything<Film>("/films/");
 
-                return result;
-            }
+        public Film GetFilm(string id)
+        {
+            return GetSingle<Film>("/films/" + id);
+        }
 
-        // Planet
-        /// <summary>
-        /// get a specific planet resource
-        /// </summary>
-        //public Planet GetPlanet(string id)
-        //{
-        //    return GetSingle<Planet>("/planets/" + id);
-        //}
 
-        /// <summary>
-        /// get all the planet resources
-        /// </summary>
+        public StarWarsCategoryResults<Film> GetAllFilms()
+        {
+            StarWarsCategoryResults<Film> result = GetEverything<Film>("/films/");
+
+            return result;
+        }
+
+
+        public Planet GetPlanet(string id)
+        {
+            return GetSingle<Planet>("/planets/" + id);
+        }
+
+
         public StarWarsCategoryResults<Planet> GetAllPlanets()
         {
             StarWarsCategoryResults<Planet> result = GetEverything<Planet>("/planets/");
@@ -252,65 +227,33 @@ namespace SWAPI_API.Utilities
             return result;
         }
 
-        // Specie
-        /// <summary>
-        /// get a specific specie resource
-        /// </summary>
-        //public Species GetSpecie(string id)
-        //{
-        //    return GetSingle<Species>("/species/" + id);
-        //}
 
-        /// <summary>
-        /// get all the specie resources
-        /// </summary>
+        public Species GetSpecie(string id)
+        {
+            return GetSingle<Species>("/species/" + id);
+        }
+
+
         public StarWarsCategoryResults<Species> GetAllSpecies(string pageNumber = "1")
-            {
-                StarWarsCategoryResults<Species> results = GetEverything<Species>("/species/");
+        {
+            StarWarsCategoryResults<Species> results = GetEverything<Species>("/species/");
 
-                return results;
-            }
+            return results;
+        }
 
-            // Starship
-            /// <summary>
-            /// get a specific starship resource
-            /// </summary>
-            public Starship GetStarship(string id)
-            {
-                return GetSingle<Starship>("/starships/" + id);
-            }
 
-            /// <summary>
-            /// get all the starship resources
-            /// </summary>
-            public StarWarsCategoryResults<Starship> GetAllStarships()
-            {
-                StarWarsCategoryResults<Starship> result = GetEverything<Starship>("/starships/");
+        public Starship GetStarship(string id)
+        {
+            return GetSingle<Starship>("/starships/" + id);
+        }
 
-                return result;
-            }
 
-            //// Vehicle
-            ///// <summary>
-            ///// get a specific vehicle resource
-            ///// </summary>
-            //public Vehicle GetVehicle(string id)
-            //{
-            //    return GetSingle<Vehicle>("/vehicles/" + id);
-            //}
+        public StarWarsCategoryResults<Starship> GetAllStarships()
+        {
+            StarWarsCategoryResults<Starship> result = GetEverything<Starship>("/starships/");
 
-            ///// <summary>
-            ///// get all the vehicle resources
-            ///// </summary>
-            //public StarWarsCategoryResults<Vehicle> GetAllVehicles(string pageNumber = "1")
-            //{
-            //    StarWarsCategoryResults<Vehicle> result = GetAllPaginated<Vehicle>("/vehicles/", pageNumber);
-
-            //    return result;
-            //}
-
-            #endregion
-        
+            return result;
+        }
 
     }
 
