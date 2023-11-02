@@ -1,5 +1,4 @@
-﻿using System;
-namespace SWAPI_API.Models
+﻿namespace SWAPI_API.Models
 {
 	public class StarWarsCategoryResults<T> : StarWarsCategory where T : StarWarsCategory
     {
