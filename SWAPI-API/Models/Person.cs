@@ -1,6 +1,4 @@
-﻿using System;
-using System.Xml.Linq;
-using SWAPI_API.Utilities;
+﻿using SWAPI_API.Utilities;
 
 namespace SWAPI_API.Models
 {
@@ -8,7 +6,7 @@ namespace SWAPI_API.Models
     {
 
 
-        public Person(Utilities.SWAPIDevInteraction interaction)
+        public Person(SWAPIDevInteraction interaction)
         {
             this.interaction = interaction;
         }

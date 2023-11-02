@@ -1,13 +1,11 @@
-﻿using System;
-using System.Linq;
-using SWAPI_API.Utilities;
+﻿using SWAPI_API.Utilities;
 
 namespace SWAPI_API.Models
 {
     public class Planet : StarWarsCategory
     {
 
-        public Planet(Utilities.SWAPIDevInteraction interaction)
+        public Planet(SWAPIDevInteraction interaction)
         {
             this.interaction = interaction;
         }
@@ -126,19 +124,6 @@ namespace SWAPI_API.Models
 
             return allPlanets.results;
         }
-
-        //private PopulationResult sumUpAllPlanetsPopulation(List<Planet> allGalaxysPlanets)
-        //{
-        //    int a;
-        //    List<Planet> planets = allGalaxysPlanets.Count > 0 ? allGalaxysPlanets: new List<Planet>();
-
-        //    List<int> planetPopulationList = new List<int>();
-        //    List<Planet> planetsWithValidPopulations = allGalaxysPlanets.Select<Planet>(ForEach(action: p => planetPopulationList.Add(TryGetInt(p.population)));
-        //    //planetPopulationList = planets.Where(p => Int32.TryParse(p.population, out a));
-        //    //planetsWithValidPopulations.ForEach(p => planetPopulationList.Add(Int32.Parse(p.population)));
-        //    return new PopulationResult(planetPopulationList.Sum());
-
-        //}
 
 
         private PopulationResult sumUpAllPlanetsPopulation(List<Planet> allGalaxysPlanets)
