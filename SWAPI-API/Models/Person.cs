@@ -6,7 +6,7 @@ namespace SWAPI_API.Models
 {
 	public class Person : StarWarsCategory
     {
-        protected SWAPIDevInteraction interaction;
+
 
         public Person(Utilities.SWAPIDevInteraction interaction)
         {
@@ -106,9 +106,9 @@ namespace SWAPI_API.Models
 
 		public List<string> getStarshipURLsByPersonName(string name)
 		{
-            string cleanName = Helper.CleanUpString(name);
-			Person personRecord = GetPersonByName(cleanName);
-			return getStarshipsByPerson(personRecord);
+            string? cleanName = Helper.CleanUpString(name);
+			Person? personRecord = GetPersonByName(cleanName);
+            return  personRecord != null ?  getStarshipsByPerson(personRecord) : new List<string>();
 		}
 
 
@@ -118,11 +118,12 @@ namespace SWAPI_API.Models
 
             if (cleanName != string.Empty)
             {
+                
                 StarWarsCategoryResults<Person> allPeople = interaction.GetAllPeople();
 
                 List<Person> allPersons = allPeople.results;
 
-                List<Person> personYoureLookingFor = allPersons.Where(p => p.name.ToUpper() == cleanName).ToList<Person>();
+                List<Person> personYoureLookingFor = allPersons.Where(p => p.name == cleanName).ToList<Person>();
 
 				//In theory should not be more than one record, but just in case
                 return personYoureLookingFor.Count() > 0 ? personYoureLookingFor[0] : null;

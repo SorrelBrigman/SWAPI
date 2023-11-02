@@ -146,57 +146,92 @@ namespace SWAPI_API.Utilities
             return result;
         }
 
-        #endregion
-
-        #region Public
-
-        /// <summary>
-        /// get a specific resource by url
-        /// </summary>
-        public T GetSingleByUrl<T>(string url) where T : StarWarsCategory
+        private StarWarsCategoryResults<T> GetEverything<T>(string entityName) where T : StarWarsCategory
         {
-            string json = Request(url, HttpMethod.GET);
-            T swapiResponse = JsonConvert.DeserializeObject<T>(json);
-            return swapiResponse;
+            List<T> result = new List<T>();
+            bool keepGoing = true;
+            int page = 1;
+            while (keepGoing)
+            {
+                StarWarsCategoryResults<T> results = GetAllPaginated<T>(entityName, page.ToString());
+                {
+                    results.results.ForEach(r => result.Add(r));
+
+                    if (String.IsNullOrEmpty(results.next))
+                    {
+                        keepGoing = false;
+                    }
+
+                    page = page + 1;
+
+                }
+            }
+            StarWarsCategoryResults<T> swapiResult = new StarWarsCategoryResults<T>();
+            swapiResult.results = result;
+            swapiResult.count = result.Count();
+
+            return swapiResult;
+            
         }
 
-        // People
-        /// <summary>
-        /// get a specific people resource
-        /// </summary>
-        public Person GetPerson(string id)
-        {
-            return GetSingle<Person>("/people/" + id);
-        }
+            #endregion
 
-        /// <summary>
-        /// get all the people resources
-        /// </summary>
-        public StarWarsCategoryResults<Person> GetAllPeople(string pageNumber = "1")
-        {
-            StarWarsCategoryResults<Person> result = GetAllPaginated<Person>("/people/", pageNumber);
+            #region Public
 
-            return result;
-        }
+            /// <summary>
+            /// get a specific resource by url
+            /// </summary>
+            public T GetSingleByUrl<T>(string url) where T : StarWarsCategory
+            {
+                string json = Request(url, HttpMethod.GET);
+                T swapiResponse = JsonConvert.DeserializeObject<T>(json);
+                return swapiResponse;
+            }
 
-        // Film
-        /// <summary>
-        /// get a specific film resource
-        /// </summary>
-        //public Film GetFilm(string id)
-        //{
-        //    return GetSingle<Film>("/films/" + id);
-        //}
+            // People
+            /// <summary>
+            /// get a specific people resource
+            /// </summary>
+            public Person GetPerson(string id)
+            {
+                return GetSingle<Person>("/people/" + id);
+            }
 
-        /// <summary>
-        /// get all the film resources
-        /// </summary>
-        //public StarWarsCategoryResults<Film> GetAllFilms(string pageNumber = "1")
-        //{
-        //    StarWarsCategoryResults<Film> result = GetAllPaginated<Film>("/films/", pageNumber);
+            public Person GetPersonByName(string name)
+            {
+                Dictionary<string, string> parameters = new Dictionary<string, string>();
+                parameters.Add("name", name.ToString());
+                return GetSingle<Person>("/people/", parameters);
+            }
 
-        //    return result;
-        //}
+            /// <summary>
+            /// get all the people resources
+            /// </summary>
+            public StarWarsCategoryResults<Person> GetAllPeople()
+            {
+                StarWarsCategoryResults<Person> result = GetEverything<Person>("/people/");
+
+                return result;
+            }
+
+            //// Film
+            //// <summary>
+            //// get a specific film resource
+            /// </summary>
+            //public Film GetFilm(string id)
+            //{
+            //    return GetSingle<Film>("/films/" + id);
+            //}
+
+            /// <summary>
+            /// get all the film resources
+            /// </summary>
+            public StarWarsCategoryResults<Film> GetAllFilms()
+            {
+                StarWarsCategoryResults<Film> result = GetEverything<Film>("/films/");
+
+                return result;
+            }
 
         // Planet
         /// <summary>
@@ -210,12 +245,12 @@ namespace SWAPI_API.Utilities
         /// <summary>
         /// get all the planet resources
         /// </summary>
-        //public StarWarsCategoryResults<Planet> GetAllPlanets(string pageNumber = "1")
-        //{
-        //    StarWarsCategoryResults<Planet> result = GetAllPaginated<Planet>("/planets/", pageNumber);
+        public StarWarsCategoryResults<Planet> GetAllPlanets()
+        {
+            StarWarsCategoryResults<Planet> result = GetEverything<Planet>("/planets/");
 
-        //    return result;
-        //}
+            return result;
+        }
 
         // Specie
         /// <summary>
@@ -229,53 +264,54 @@ namespace SWAPI_API.Utilities
         /// <summary>
         /// get all the specie resources
         /// </summary>
-        //public StarWarsCategoryResults<Species> GetAllSpecies(string pageNumber = "1")
-        //{
-        //    StarWarsCategoryResults<Species> result = GetAllPaginated<Specie>("/species/", pageNumber);
+        public StarWarsCategoryResults<Species> GetAllSpecies(string pageNumber = "1")
+            {
+                StarWarsCategoryResults<Species> results = GetEverything<Species>("/species/");
 
-        //    return result;
-        //}
+                return results;
+            }
 
-        // Starship
-        /// <summary>
-        /// get a specific starship resource
-        /// </summary>
-        public Starship GetStarship(string id)
-        {
-            return GetSingle<Starship>("/starships/" + id);
-        }
+            // Starship
+            /// <summary>
+            /// get a specific starship resource
+            /// </summary>
+            public Starship GetStarship(string id)
+            {
+                return GetSingle<Starship>("/starships/" + id);
+            }
 
-        /// <summary>
-        /// get all the starship resources
-        /// </summary>
-        public StarWarsCategoryResults<Starship> GetAllStarships(string pageNumber = "1")
-        {
-            StarWarsCategoryResults<Starship> result = GetAllPaginated<Starship>("/starships/", pageNumber);
+            /// <summary>
+            /// get all the starship resources
+            /// </summary>
+            public StarWarsCategoryResults<Starship> GetAllStarships()
+            {
+                StarWarsCategoryResults<Starship> result = GetEverything<Starship>("/starships/");
 
-            return result;
-        }
+                return result;
+            }
 
-        //// Vehicle
-        ///// <summary>
-        ///// get a specific vehicle resource
-        ///// </summary>
-        //public Vehicle GetVehicle(string id)
-        //{
-        //    return GetSingle<Vehicle>("/vehicles/" + id);
-        //}
+            //// Vehicle
+            ///// <summary>
+            ///// get a specific vehicle resource
+            ///// </summary>
+            //public Vehicle GetVehicle(string id)
+            //{
+            //    return GetSingle<Vehicle>("/vehicles/" + id);
+            //}
 
-        ///// <summary>
-        ///// get all the vehicle resources
-        ///// </summary>
-        //public StarWarsCategoryResults<Vehicle> GetAllVehicles(string pageNumber = "1")
-        //{
-        //    StarWarsCategoryResults<Vehicle> result = GetAllPaginated<Vehicle>("/vehicles/", pageNumber);
+            ///// <summary>
+            ///// get all the vehicle resources
+            ///// </summary>
+            //public StarWarsCategoryResults<Vehicle> GetAllVehicles(string pageNumber = "1")
+            //{
+            //    StarWarsCategoryResults<Vehicle> result = GetAllPaginated<Vehicle>("/vehicles/", pageNumber);
 
-        //    return result;
-        //}
+            //    return result;
+            //}
 
-        #endregion
+            #endregion
+        
+
     }
-    
-}
 
+}

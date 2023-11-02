@@ -8,7 +8,6 @@ namespace SWAPI_API.Models
     public class Starship : Vehicle
 	{
 
-        protected SWAPIDevInteraction interaction;
         public Starship(SWAPIDevInteraction interaction)
 		{
 			this.interaction = interaction;

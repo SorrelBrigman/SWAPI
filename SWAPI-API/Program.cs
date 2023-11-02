@@ -14,7 +14,6 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    Console.WriteLine("initial commitgit ");
 }
 
 app.UseHttpsRedirection();
