@@ -85,7 +85,7 @@ namespace SWAPI_API.Models
             {
                 StarWarsCategoryResults<Film> allFilms = interaction.GetAllFilms();
 
-                List<Film> filmYoureLookingFor = allFilms.results.Where(p => p.title == cleanTitle).ToList<Film>();
+                List<Film> filmYoureLookingFor = allFilms.results.Where(p => p.title.ToUpper() == cleanTitle.ToUpper()).ToList<Film>();
 
                 //In theory should not be more than one record, but just in case
                 return filmYoureLookingFor.Count() > 0 ? filmYoureLookingFor[0] : null;

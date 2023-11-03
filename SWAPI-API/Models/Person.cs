@@ -121,7 +121,7 @@ namespace SWAPI_API.Models
 
                 List<Person> allPersons = allPeople.results;
 
-                List<Person> personYoureLookingFor = allPersons.Where(p => p.name == cleanName).ToList<Person>();
+                List<Person> personYoureLookingFor = allPersons.Where(p => p.name.ToUpper() == cleanName.ToUpper()).ToList<Person>();
 
 				//In theory should not be more than one record, but just in case
                 return personYoureLookingFor.Count() > 0 ? personYoureLookingFor[0] : null;
