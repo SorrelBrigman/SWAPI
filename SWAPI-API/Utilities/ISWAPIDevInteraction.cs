@@ -6,8 +6,6 @@ namespace SWAPI_API.Utilities
 {
 	public interface ISWAPIDevInteraction
 	{
-        //T GetSingleByUrl<T>(string url) where T : StarWarsCategory;
-
 
         Person GetPerson(string id);
 
