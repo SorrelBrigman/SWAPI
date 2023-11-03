@@ -6,7 +6,7 @@ namespace SWAPI_API.Models
     {
 
 
-        public Person(SWAPIDevInteraction interaction)
+        public Person(ISWAPIDevInteraction interaction)
         {
             this.interaction = interaction;
         }

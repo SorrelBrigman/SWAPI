@@ -5,7 +5,7 @@ namespace SWAPI_API.Models
     public class Species : StarWarsCategory
     {
 
-        public Species(SWAPIDevInteraction interaction)
+        public Species(ISWAPIDevInteraction interaction)
         {
             this.interaction = interaction;
         }

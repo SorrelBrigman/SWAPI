@@ -6,7 +6,7 @@ using SWAPI_API.Models;
 
 namespace SWAPI_API.Utilities
 {
-    public class SWAPIDevInteraction
+    public class SWAPIDevInteraction : ISWAPIDevInteraction
     {
         public SWAPIDevInteraction()
         {
@@ -234,7 +234,7 @@ namespace SWAPI_API.Utilities
         }
 
 
-        public StarWarsCategoryResults<Species> GetAllSpecies(string pageNumber = "1")
+        public StarWarsCategoryResults<Species> GetAllSpecies()
         {
             StarWarsCategoryResults<Species> results = GetEverything<Species>("/species/");
 
