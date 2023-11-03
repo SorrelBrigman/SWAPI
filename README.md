@@ -48,6 +48,8 @@ This endpoint, when coupled with the search param of filmTitle will return all t
 example_use: (film title "A New Hope")
 https://localhost:7246/api/SWAPI/species/film/film_title?filmTitle=A%20New%20Hope
 
+#Shout out# 
+to SharpTrooper by Olcay Bayram. I was unable to use the library directly (as it was on an older .NET version than my solution), but I strongly referenced this code for the SWAPI interaction code.
 
 
 
