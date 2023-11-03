@@ -6,7 +6,7 @@ namespace SWAPI_API.Models
     public class Starship : Vehicle
 	{
 
-        public Starship(SWAPIDevInteraction interaction)
+        public Starship(ISWAPIDevInteraction interaction)
 		{
 			this.interaction = interaction;
         }

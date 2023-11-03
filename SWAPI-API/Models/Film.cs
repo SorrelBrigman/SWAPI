@@ -5,7 +5,7 @@ namespace SWAPI_API.Models
     public class Film : StarWarsCategory
     {
 
-        public Film(SWAPIDevInteraction interaction)
+        public Film(ISWAPIDevInteraction interaction)
         {
             this.interaction = interaction;
 

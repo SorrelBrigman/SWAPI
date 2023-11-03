@@ -1,6 +1,6 @@
 ﻿namespace SWAPI_API.Utilities
 {
-    static class Helper
+    public static class Helper
     {
         public static string? CleanUpString(string rawString)
         {

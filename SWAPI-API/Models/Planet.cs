@@ -5,7 +5,7 @@ namespace SWAPI_API.Models
     public class Planet : StarWarsCategory
     {
 
-        public Planet(SWAPIDevInteraction interaction)
+        public Planet(ISWAPIDevInteraction interaction)
         {
             this.interaction = interaction;
         }
