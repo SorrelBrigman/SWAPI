@@ -27,7 +27,7 @@ All requests are GET requests.
 This endpoint returns the starships associated to Luke Skywalker.
 
 <localhost>/api/SWAPI/person/starships/character_name
-This endpoint, when coupled with the search param of name will return starships associated with the character_name you passed in, assuming it is a valid character name in star wars, and you spelled it correctly (capitalization counts).
+This endpoint, when coupled with the search param of name will return starships associated with the character_name you passed in, assuming it is a valid character name in star wars, and you spelled it correctly.
 
 example use: (Character name "Darth Vader"
 https://localhost:7246/api/SWAPI/person/starships/character_name?name=Darth%20Vader
@@ -43,7 +43,7 @@ It should be noted that there are some planets with "unknown" population in the 
 This endpoint returns all the species (name and classification) in The Phantom Menace (also known as First Episode).
 
 <localhost>/api/SWAPI/species/film/film_title
-This endpoint, when coupled with the search param of filmTitle will return all the species (name and classification) associated with the filmTitle you passed in, assuming it is a valid character film title in star wars, and you spelled it correctly (capitalization counts).
+This endpoint, when coupled with the search param of filmTitle will return all the species (name and classification) associated with the filmTitle you passed in, assuming it is a valid character film title in star wars, and you spelled it correctly.
 
 example_use: (film title "A New Hope")
 https://localhost:7246/api/SWAPI/species/film/film_title?filmTitle=A%20New%20Hope
